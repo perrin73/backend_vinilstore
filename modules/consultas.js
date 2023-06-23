@@ -1,4 +1,5 @@
-const { Pool } = require('pg')
+import pg from 'pg';
+const { Pool } = pg;
 const bcrypt = require('bcrypt')
 const env = require('dotenv')
 
