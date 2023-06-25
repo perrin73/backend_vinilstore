@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs')
 const cors = require('cors')
 
 const { getUsuario,loginUsuario,registrarUsuario,
-        verificarToken,publicarAlbum,getPublicaciones,publicaciones, todoPublicaciones } = require('./modules/middleware')
+        verificarToken,publicarAlbum,getPublicaciones,publicaciones, todoPublicaciones,eliminarAlbum } = require('./modules/middleware')
 
 
 
@@ -111,4 +111,24 @@ app.get('/todopublicaciones',verificarToken, async(req,res)=> {
     } catch (error) {
         console.log(error)
     }
+})
+
+app.post('/eliminar',verificarToken, async (req,res) => {
+
+    try {
+		
+        const {albumid} = req.body;
+        
+        const respuesta = await eliminarAlbum(albumid)
+    if (respuesta) {
+        res.status(200).send('Album se eliminó exitosamente')
+    } else {
+        res.status(500).send('No se logró eliminar el album')
+    }
+        
+    } catch (error) {
+        res.status(500).send('Hubo un problema no se eliminó el album')
+    }
+    
+            
 })

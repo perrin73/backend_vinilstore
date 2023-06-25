@@ -133,9 +133,26 @@ const publicarAlbumDB = async (album_nombre,album_artista,album_mbid,album_image
                 
                 
                 }
+
+                const eliminarAlbumDB = async (albumid) => {
+    
+                    try {
+                        
+                        const values = [albumid]
+                        const query = "DELETE FROM ALBUM WHERE ID = $1"
+                        const { rows } = await pool.query(query, values);
+                                            
+                    } catch (error) {
+                       console.log(error);
+                       return false 
+                    }
+                    
+                    
+                    }
+                
         
         
     
 
 
- module.exports = { getUsuarioDB, registrarUsuarioDB, loginUsuarioDB,publicarAlbumDB,getPublicacionesDB, publicacionesDB,todoPublicacionesDB };
+ module.exports = { getUsuarioDB, registrarUsuarioDB, loginUsuarioDB,publicarAlbumDB,getPublicacionesDB, publicacionesDB,todoPublicacionesDB,eliminarAlbumDB };
