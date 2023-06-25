@@ -121,13 +121,13 @@ app.post('/eliminar',verificarToken, async (req,res) => {
         
         const respuesta = await eliminarAlbum(albumid)
     if (respuesta) {
-        res.status(200).send('Album se eliminó exitosamente')
+        res.status(200).json({ message: 'Album se eliminó exitosamente' });
     } else {
-        res.status(500).send('No se logró eliminar el album')
+        res.status(500).json({ message: 'No se logró eliminar el album' });
     }
         
     } catch (error) {
-        res.status(500).send('Hubo un problema no se eliminó el album')
+        res.status(500).json({ message: 'Hubo un problema no se eliminó el album' });
     }
     
             
