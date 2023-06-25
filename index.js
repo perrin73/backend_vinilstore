@@ -7,7 +7,9 @@ const bcrypt = require('bcryptjs')
 const cors = require('cors')
 
 const { getUsuario,loginUsuario,registrarUsuario,
-        verificarToken,publicarAlbum,getPublicaciones,publicaciones, todoPublicaciones,eliminarAlbum } = require('./modules/middleware')
+        verificarToken,publicarAlbum,getPublicaciones,
+        publicaciones, todoPublicaciones,eliminarAlbum,
+        editarAlbum } = require('./modules/middleware')
 
 
 
@@ -128,6 +130,26 @@ app.post('/eliminar',verificarToken, async (req,res) => {
         
     } catch (error) {
         res.status(500).json({ message: 'Hubo un problema no se eliminó el album' });
+    }
+    
+            
+})
+
+app.post('/editar',verificarToken, async (req,res) => {
+
+    try {
+		
+        const {albumid,precio,estado} = req.body;
+        
+        const respuesta = await editarAlbum(albumid,precio,estado)
+    if (respuesta) {
+        res.status(200).json({ message: 'Album se editó exitosamente' });
+    } else {
+        res.status(500).json({ message: 'No se logró editar el album' });
+    }
+        
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un problema no se editó el album' });
     }
     
             

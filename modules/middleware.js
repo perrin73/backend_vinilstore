@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken")
-const {getUsuarioDB, registrarUsuarioDB,loginUsuarioDB,publicarAlbumDB,getPublicacionesDB,publicacionesDB,todoPublicacionesDB,eliminarAlbumDB} = require('./consultas')
+const {getUsuarioDB, registrarUsuarioDB,loginUsuarioDB,
+      publicarAlbumDB,getPublicacionesDB,publicacionesDB,
+      todoPublicacionesDB,eliminarAlbumDB,editarAlbum} = require('./consultas')
 
 const verificarToken = (req, res, next) => {
     const token = req.header("Authorization").split("Bearer ")[1]
@@ -129,6 +131,20 @@ const eliminarAlbum = async(albumid)=>{
   return true;
 }
 
+const editarAlbum = async(albumid,precio,estado)=>{
+  if(!albumid || !precio || !estado){
+      
+  return false
+  }else{
+      try {
+          await editarAlbumDB(albumid)
+      } catch (error) {
+        return false  
+      }
+  }
+  return true;
+}
+
 
 module.exports = {getUsuario,
                   loginUsuario,
@@ -138,5 +154,6 @@ module.exports = {getUsuario,
                   getPublicaciones,
                   publicaciones,
                   todoPublicaciones,
-                  eliminarAlbum
+                  eliminarAlbum,
+                  editarAlbum
                 }

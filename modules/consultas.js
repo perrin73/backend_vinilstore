@@ -149,10 +149,27 @@ const publicarAlbumDB = async (album_nombre,album_artista,album_mbid,album_image
                     
                     
                     }
+
+
+                    const editarAlbumDB = async (albumid,precio,estado) => {
+    
+                        try {
+                            
+                            const values = [albumid,precio,estado]
+                            const query = "UPDATE publicacion SET precio = $2 , estado = $3 where album_id = $1 "
+                            const { rows } = await pool.query(query, values);
+                                                
+                        } catch (error) {
+                           console.log(error);
+                           return false 
+                        }
+                        
+                        
+                        }
                 
         
         
     
 
 
- module.exports = { getUsuarioDB, registrarUsuarioDB, loginUsuarioDB,publicarAlbumDB,getPublicacionesDB, publicacionesDB,todoPublicacionesDB,eliminarAlbumDB };
+ module.exports = { getUsuarioDB, registrarUsuarioDB, loginUsuarioDB,publicarAlbumDB,getPublicacionesDB, publicacionesDB,todoPublicacionesDB,eliminarAlbumDB,editarAlbumDB };
