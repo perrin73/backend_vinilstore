@@ -24,7 +24,7 @@ app.post('/login',async(req,res)=>{
         const {email, password} = req.body
         const datos = await loginUsuario(email,password)
         if(datos){
-            const token = jwt.sign({ email },'clave secreta')
+            const token = jwt.sign({ email },process.env.POSTGRES_SECRET)
             res.send({token,datos})
         }else{
             res.status(401).send('Lo siento hay un error revise sus credenciales!');

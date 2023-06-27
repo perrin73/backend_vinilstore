@@ -9,7 +9,7 @@ const verificarToken = (req, res, next) => {
         code: 401,
         message: "Debes incluir token en el header"
     }
-    const tokenValido = jwt.verify(token, 'clave secreta')
+    const tokenValido = jwt.verify(token, process.env.POSTGRES_SECRET)
     if(!tokenValido) throw { 
         code: 401,
         message: "El token no es válido"
